@@ -19,7 +19,7 @@ return [
                 'port' => '587',
 
                 'username' => 'slaterbeepboop@gmail.com',
-                'password' => 'beepboopbeepboop', 
+                'password' => 'beepboopbeepboop',
             ],
         ],
     ],
