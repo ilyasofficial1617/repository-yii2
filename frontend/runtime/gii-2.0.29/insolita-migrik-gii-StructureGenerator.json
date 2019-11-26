@@ -1,0 +1,1 @@
+{"template":"default","enableI18N":false,"messageCategory":"app","db":"db","migrationPath":"@app\/migrations","usePrefix":"1","tableOptions":"ENGINE=mysql","tableIgnore":"*migrat*","resolverClass":"","fkOnUpdate":"CASCADE","fkOnDelete":"CASCADE"}
