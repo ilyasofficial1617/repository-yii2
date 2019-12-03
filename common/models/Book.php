@@ -31,5 +31,9 @@ class Book extends ActiveRecord
       ];
     }
 
+    public function getAll(){
+      return Post::find()->all();
+    }
+
 
 }

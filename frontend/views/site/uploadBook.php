@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use common\models\Subject;
+use yii\helpers\ArrayHelper;
 $this->title = 'Upload Book';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -12,7 +14,18 @@ $this->params['breadcrumbs'][] = $this->title;
       <div class="col-lg-5">
           <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','id' => 'form-upload-book']]); ?>
 
-              <?= $form->field($model, 'subject_id') ?>
+              <?php
+              //use app\models\Country;
+              $subject=Subject::find()->all();
+
+              //use yii\helpers\ArrayHelper;
+              $listData=ArrayHelper::map($subject,'id','subject');
+
+              echo $form->field($model, 'subject_id')->dropDownList(
+                      $listData,
+                      ['prompt'=>'Select...']
+                      );
+              ?>
 
               <?= $form->field($model, 'book_name') ?>
 
@@ -23,7 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
               <?= $form->field($model, 'file')->fileInput() ?>
 
               <?= $form->field($model, 'semester') ?>
-
               <div class="form-group">
                   <?= Html::submitButton('Upload', ['class' => 'btn btn-primary', 'name' => 'upload-button']) ?>
               </div>

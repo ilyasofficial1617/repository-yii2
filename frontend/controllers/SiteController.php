@@ -90,7 +90,7 @@ class SiteController extends Controller
                 $book_temp->filename =  $model->file->baseName . '.' . $model->file->extension;
                 $book_temp->semester =  $model->semester;
                 //saved
-                if($book_temp->save(false)){
+                if($book_temp->save()){
                   Yii::$app->session->setFlash('success', 'Berhasil menambahkan buku '.$model->book_name);
                   return $this->render('uploadBook', ['model' => new UploadBookForm()]);
                 }
