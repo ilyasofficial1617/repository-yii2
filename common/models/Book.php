@@ -20,12 +20,13 @@ class Book extends ActiveRecord
     */
     public function rules(){
       return [
-        [['subject_id', 'book_name', 'author', 'release_year'],'required'],
+        [['subject_id', 'book_name', 'author', 'release_year', 'filename'],'required'],
         ['subject_id','number'],
         ['book_name','string'],
         ['author','string'],
         ['release_year','number'],
-        array ( "subject_id, book_name, author, release_year" , "safe" )
+        ['filename','string'],
+        array ( "subject_id, book_name, author, release_year, filename" , "safe" )
       ];
     }
 

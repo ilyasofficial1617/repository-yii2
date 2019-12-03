@@ -15,6 +15,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\models\UploadBookForm;
+use yii\web\UploadedFile;
+use common\models\Book;
 
 /**
  * Site controller
@@ -70,9 +72,36 @@ class SiteController extends Controller
 
     ////custom action ////
     public function actionUploadBook(){
-
       $model = new UploadBookForm();
-      if ($model->load(Yii::$app->request->post()) && $model->add()) {
+
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->upload()) {
+                // file is uploaded successfully
+
+                $book_temp = new Book();
+                //assign value
+                $book_temp->subject_id =  $model->subject_id;
+                $book_temp->book_name =  $model->book_name;
+                $book_temp->author =  $model->author;
+                $book_temp->release_year =  $model->release_year;
+                $book_temp->filename =  $model->file->baseName . '.' . $model->file->extension;
+                //saved
+                if($book_temp->save(false)){
+                  Yii::$app->session->setFlash('success', 'Berhasil menambahkan buku '.$model->book_name);
+                  return $this->render('uploadBook', ['model' => new UploadBookForm()]);
+                }
+
+
+
+            }
+        }
+        //throw new \yii\base\UserException("false upload()");
+
+        return $this->render('uploadBook', ['model' => $model]);
+
+      /*$model = new UploadBookForm();
+      if ($model->load(Yii::$app->request->post()) && $model->upload()) {
           Yii::$app->session->setFlash('success', 'Berhasil menambahkan buku '.$model->book_name);
           return $this->render('uploadBook', [
               'model' => new UploadBookForm(),
@@ -81,7 +110,41 @@ class SiteController extends Controller
 
       return $this->render('uploadBook', [
           'model' => $model,
-      ]);
+      ]);*/
+      /*
+      $model = new UploadBookForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->file && $model->validate()) {
+              Yii::$app->session->setFlash('success', 'Berhasil menambahkan buku '.$model->book_name);
+
+              $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+              $model->imageFile->saveAs('repo-data/' . $model->file->baseName . '.' . $model->file->extension);
+
+              return $this->render('uploadBook', [
+                  'model' => new UploadBookForm(),
+              ]);
+            }
+        }
+
+        return $this->render('uploadBook', [
+            'model' => new UploadBookForm(),
+        ]);*/
+        /*
+        $model = new UploadBookForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->file && $model->validate()) {
+                $model->file->saveAs('repo-data/' . $model->file->baseName . '.' . $model->file->extension);
+            }
+        }
+
+        return $this->render('uploadBook', ['model' => $model]);
+        */
     }
 
     /**

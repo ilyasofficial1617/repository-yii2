@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <div class="row">
       <div class="col-lg-5">
-          <?php $form = ActiveForm::begin(['id' => 'form-upload-book']); ?>
+          <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','id' => 'form-upload-book']]); ?>
 
               <?= $form->field($model, 'subject_id') ?>
 
@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
               <?= $form->field($model, 'author') ?>
 
               <?= $form->field($model, 'release_year') ?>
+
+              <?= $form->field($model, 'file')->fileInput() ?>
 
               <div class="form-group">
                   <?= Html::submitButton('Upload', ['class' => 'btn btn-primary', 'name' => 'upload-button']) ?>
