@@ -12,6 +12,7 @@ class UploadBookForm extends Model {
   public $author;
   public $release_year;
   public $file;
+  public $semester;
 
   public function rules(){
     return [
@@ -21,6 +22,7 @@ class UploadBookForm extends Model {
       ['author','string'],
       ['release_year','number'],
       [['file'], 'file'],
+      ['semester','number'],
     ];
   }
 

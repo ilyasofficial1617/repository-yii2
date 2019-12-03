@@ -26,7 +26,8 @@ class Book extends ActiveRecord
         ['author','string'],
         ['release_year','number'],
         ['filename','string'],
-        array ( "subject_id, book_name, author, release_year, filename" , "safe" )
+        ['semester','number'],
+        array ( "subject_id, book_name, author, release_year, filename, semester" , "safe" )
       ];
     }
 

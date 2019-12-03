@@ -88,6 +88,7 @@ class SiteController extends Controller
                 $book_temp->author =  $model->author;
                 $book_temp->release_year =  $model->release_year;
                 $book_temp->filename =  $model->file->baseName . '.' . $model->file->extension;
+                $book_temp->semester =  $model->semester;
                 //saved
                 if($book_temp->save(false)){
                   Yii::$app->session->setFlash('success', 'Berhasil menambahkan buku '.$model->book_name);
