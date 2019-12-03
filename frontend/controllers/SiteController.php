@@ -15,8 +15,10 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\models\UploadBookForm;
-use yii\web\UploadedFile;
+use frontend\models\AddSubjectForm;
 use common\models\Book;
+use common\models\Subject;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -145,6 +147,22 @@ class SiteController extends Controller
 
         return $this->render('uploadBook', ['model' => $model]);
         */
+    }
+
+    ////custom action ////
+    public function actionAddSubject()
+    {
+        $model = new AddSubjectForm();
+        if ($model->load(Yii::$app->request->post()) && $model->add()) {
+            Yii::$app->session->setFlash('success', 'Berhasil menambahkan subject '.$model->subject);
+            return $this->render('addSubject', [
+                'model' => new AddSubjectForm(),
+            ]);
+        }
+
+        return $this->render('addSubject', [
+            'model' => $model,
+        ]);
     }
 
     /**
