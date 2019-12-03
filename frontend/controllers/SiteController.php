@@ -14,6 +14,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\UploadBookForm;
 
 /**
  * Site controller
@@ -65,6 +66,22 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    ////custom action ////
+    public function actionUploadBook(){
+
+      $model = new UploadBookForm();
+      if ($model->load(Yii::$app->request->post()) && $model->add()) {
+          Yii::$app->session->setFlash('success', 'Berhasil menambahkan buku '.$model->book_name);
+          return $this->render('uploadBook', [
+              'model' => new UploadBookForm(),
+          ]);
+      }
+
+      return $this->render('uploadBook', [
+          'model' => $model,
+      ]);
     }
 
     /**
