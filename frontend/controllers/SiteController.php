@@ -19,6 +19,7 @@ use frontend\models\AddSubjectForm;
 use common\models\Book;
 use common\models\Subject;
 use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
 
 /**
  * Site controller
@@ -173,7 +174,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $books = new ActiveDataProvider([
+                'query'=>Book::find()
+                    ->orderBy('id DESC')
+                    ->limit(5),
+        ]);
+        return $this->render('index',['books'=>$books]);
     }
 
     /**

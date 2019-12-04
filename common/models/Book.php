@@ -39,5 +39,11 @@ class Book extends ActiveRecord
       return Post::find()->all();
     }
 
+    public function getLinkFile(){
+      $data = Book::findOne($this->id);
+
+      $link = $data->filename;
+      return $link;
+    }
 
 }

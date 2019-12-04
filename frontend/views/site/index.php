@@ -1,10 +1,35 @@
 <?php
 
+use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Repository';
 ?>
 <div class="site-index">
+
+    <?php
+    echo GridView::widget([
+        'dataProvider' => $books,
+        'columns'=>[
+            ['class'=>'yii\grid\SerialColumn'],
+            'book_name',
+            'author',
+            'release_year',
+            'semester',
+            [
+                'label' => 'Download Here',
+                'format' => 'raw',
+                'value' => function($model) {
+                    $url = 'repo-data/'.$model->getLinkFile();
+                    return Html::a($model->getLinkFile(),$url);
+                }
+            ]
+        ]
+    ])
+    ?>
 
     <div class="jumbotron">
         <h1>Congratulations!</h1>
