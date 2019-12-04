@@ -6,9 +6,15 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Repository';
+$this->title = 'Repository Yii2';
 ?>
 <div class="site-index">
+
+    <div class="jumbotron">
+        <?php echo Html::img('@web/img/logo-pens.png', ['alt'=>'some', 'class'=>'img-fluid']);  ?>
+        <!-- <img src="logo-pens.png"> -->
+    </div>
+
 
     <?php
     echo GridView::widget([
@@ -31,7 +37,7 @@ $this->title = 'Repository';
     ])
     ?>
 
-    <div class="jumbotron">
+   <!--  <div class="jumbotron">
         <h1>Congratulations!</h1>
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
@@ -76,3 +82,4 @@ $this->title = 'Repository';
 
     </div>
 </div>
+ -->

@@ -29,7 +29,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => Html::img('@web/img/yii-framework-2.png', ['alt'=>'some', 'class'=>'img-fluid', 'height'=>'30px', 'width'=>'40px']),
+        // <img src='yii-framework-2.png'>
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -46,6 +47,7 @@ AppAsset::register($this);
     } elseif (Yii::$app->user->identity->admin_level == '1'){
         $menuItems[] = ['label' => 'Add Subject', 'url' => ['/site/add-subject']];
         $menuItems[] = ['label' => 'Upload Book', 'url' => ['/site/upload-book']];
+        // $menuItems[] = ['label' => 'Dashboard', 'url' => ['/site/dashboard']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
