@@ -34,7 +34,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'upload-book', 'add-subject'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -43,6 +43,16 @@ class SiteController extends Controller
                     ],
                     [
                         'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['upload-book'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['add-subject'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -75,6 +85,11 @@ class SiteController extends Controller
 
     ////custom action ////
     public function actionUploadBook(){
+      //if not admin
+      if (Yii::$app->user->identity->admin_level != '1'){
+        $this->redirect(['site/index']);
+      }
+
       $model = new UploadBookForm();
 
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
@@ -154,6 +169,11 @@ class SiteController extends Controller
     ////custom action ////
     public function actionAddSubject()
     {
+      //if not admin
+      if (Yii::$app->user->identity->admin_level != '1'){
+        $this->redirect(['site/index']);
+      }
+
         $model = new AddSubjectForm();
         if ($model->load(Yii::$app->request->post()) && $model->add()) {
             Yii::$app->session->setFlash('success', 'Berhasil menambahkan subject '.$model->subject);
