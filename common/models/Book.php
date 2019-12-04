@@ -12,11 +12,15 @@ use yii\db\ActiveRecord;
  */
 class Book extends ActiveRecord
 {
-    /*public $id;
-    public $subject_id;
-    public $book_name;
-    public $author;
-    public $release_year;
+    /*
+    @property integer $id
+    @property integer $subject_id
+    @property string $book_name
+    @property string $author
+    @property integer $release_year
+    @property string $filename
+    @property integer $semester
+
     */
     public function rules(){
       return [

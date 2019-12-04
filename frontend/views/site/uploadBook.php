@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
               <?= $form->field($model, 'file')->fileInput() ?>
 
               <?= $form->field($model, 'semester') ?>
+              
               <div class="form-group">
                   <?= Html::submitButton('Upload', ['class' => 'btn btn-primary', 'name' => 'upload-button']) ?>
               </div>

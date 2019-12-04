@@ -16,7 +16,7 @@ class UploadBookForm extends Model {
 
   public function rules(){
     return [
-      [['subject_id', 'book_name', 'author', 'release_year'],'required'],
+      [['subject_id', 'book_name', 'author', 'release_year','file'],'required'],
       ['subject_id','number'],
       ['book_name','string'],
       ['author','string'],
