@@ -39,13 +39,14 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        //['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-        $menuItems[] = ['label' => 'Search', 'url' => ['/site/search']];
+        
     } elseif (Yii::$app->user->identity->admin_level == '1'){
+        $menuItems[] = ['label' => 'Search', 'url' => ['/site/search']];
         $menuItems[] = ['label' => 'Add Subject', 'url' => ['/site/add-subject']];
         $menuItems[] = ['label' => 'Upload Book', 'url' => ['/site/upload-book']];
         $menuItems[] = ['label' => 'Dashboard', 'url' => ['/site/dashboard']];
@@ -58,6 +59,7 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     } else  {
+        $menuItems[] = ['label' => 'Search', 'url' => ['/site/search']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

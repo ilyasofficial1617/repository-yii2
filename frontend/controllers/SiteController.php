@@ -180,11 +180,6 @@ class SiteController extends Controller
 
     public function actionSearch(){
 
-      //if not admin
-      if (Yii::$app->user->identity->admin_level != '1'){
-        $this->redirect(['site/index']);
-      }
-
         $model = new SearchForm();
         if ($model->load(Yii::$app->request->post())) {
             $post = True;
