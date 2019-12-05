@@ -16,6 +16,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\models\UploadBookForm;
 use frontend\models\AddSubjectForm;
+use frontend\models\DashboardForm;
 use frontend\models\SearchForm;
 use common\models\Book;
 use common\models\Subject;
@@ -171,19 +172,30 @@ class SiteController extends Controller
         
         $model = new SearchForm();
         if ($model->load(Yii::$app->request->post())) {
-          
+            $post = True;
             $value="%".$model->value."%";
-            $query = Book::find()
-                    ->where("$model->category LIKE :val")
-                    ->addParams([':val'=>$value]);
+            if($model->category == 'subject'){
+              $subQuery = Subject::find()
+                          ->select(['id'])
+                          ->where("subject LIKE :val")
+                          ->addParams([':val'=>$value]);
+              $query = Book::find()
+                      ->where(['=','subject_id',$subQuery]);
+            }
+            else{
+              $query = Book::find()
+                      ->where("$model->category LIKE :val")
+                      ->addParams([':val'=>$value]);
+            }
             $books = new ActiveDataProvider([
-                'query'=>$query,
-            ]);
-            return $this->render('search',['books'=>$books,'model' => $model]);
-        }
+                  'query'=>$query,
+              ]);
+            return $this->render('search',['books'=>$books,'model' => $model,'post'=>$post]);
 
+        }
+        $post = False;
         return $this->render('search', [
-            'model' => $model,
+            'model' => $model,'post'=>$post
         ]);
 
         /*$model = new SearchForm();
@@ -210,6 +222,12 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionDashboard()
+    {
+        return $this->render('dashboard');
+    }
+
 
     /**
      * Displays homepage.

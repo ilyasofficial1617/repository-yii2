@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
               
 
               //use yii\helpers\ArrayHelper;
-              $listData=['book_name'=>'book_name','author'=>'author','release_year' => 'release_year','semester'=>'semester'];
+              $listData=['book_name'=>'book_name','author'=>'author','release_year' => 'release_year','semester'=>'semester','subject'=>'subject'];
 
               echo $form->field($model, 'category')->dropDownList(
                       $listData,
@@ -41,24 +41,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
           <?php ActiveForm::end(); ?>
           <?php
-            echo GridView::widget([
-            'dataProvider' => $books,
-            'columns'=>[
-                ['class'=>'yii\grid\SerialColumn'],
-                'book_name',
-                'author',
-                'release_year',
-                'semester',
-                [
-                    'label' => 'Download Here',
-                    'format' => 'raw',
-                    'value' => function($model) {
-                        $url = 'repo-data/'.$model->getLinkFile();
-                        return Html::a($model->getLinkFile(),$url);
-                    }
-                ]
-            ]
-        ])
+            if($post == True){
+              echo GridView::widget([
+              'dataProvider' => $books,
+              'columns'=>[
+                  ['class'=>'yii\grid\SerialColumn'],
+                  'book_name',
+                  'author',
+                  'release_year',
+                  'semester',
+                  [
+                      'label' => 'Download Here',
+                      'format' => 'raw',
+                      'value' => function($model) {
+                          $url = 'repo-data/'.$model->getLinkFile();
+                          return Html::a($model->getLinkFile(),$url);
+                      }
+                  ]
+              ]
+          ]);
+        }
         ?>
       </div>
   </div>
