@@ -16,6 +16,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\models\UploadBookForm;
 use frontend\models\AddSubjectForm;
+use frontend\models\DashboardForm;
 use common\models\Book;
 use common\models\Subject;
 use yii\web\UploadedFile;
@@ -186,6 +187,12 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionDashboard()
+    {
+        return $this->render('dashboard');
+    }
+
 
     /**
      * Displays homepage.
