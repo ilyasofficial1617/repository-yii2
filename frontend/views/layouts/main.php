@@ -44,10 +44,11 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Search', 'url' => ['/site/search']];
     } elseif (Yii::$app->user->identity->admin_level == '1'){
         $menuItems[] = ['label' => 'Add Subject', 'url' => ['/site/add-subject']];
         $menuItems[] = ['label' => 'Upload Book', 'url' => ['/site/upload-book']];
-        // $menuItems[] = ['label' => 'Dashboard', 'url' => ['/site/dashboard']];
+        $menuItems[] = ['label' => 'Dashboard', 'url' => ['/site/dashboard']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

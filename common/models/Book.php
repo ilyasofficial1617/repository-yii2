@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
  */
 class Book extends ActiveRecord
 {
-    public $cnt;
+    public $cnt = 0;
     /*
     @property integer $id
     @property integer $subject_id
@@ -37,7 +37,7 @@ class Book extends ActiveRecord
     }
 
     public function getAll(){
-      return Post::find()->all();
+      return Book::find()->all();
     }
 
     public function getLinkFile(){

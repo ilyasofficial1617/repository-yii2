@@ -36,7 +36,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'upload-book', 'add-subject'],
+                'only' => ['logout', 'signup', 'upload-book', 'add-subject', 'search', 'dashboard'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -55,6 +55,16 @@ class SiteController extends Controller
                     ],
                     [
                         'actions' => ['add-subject'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['search'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['dashboard'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -169,7 +179,12 @@ class SiteController extends Controller
     }
 
     public function actionSearch(){
-        
+
+      //if not admin
+      if (Yii::$app->user->identity->admin_level != '1'){
+        $this->redirect(['site/index']);
+      }
+
         $model = new SearchForm();
         if ($model->load(Yii::$app->request->post())) {
             $post = True;
@@ -225,6 +240,11 @@ class SiteController extends Controller
 
     public function actionDashboard()
     {
+      //if not admin
+      if (Yii::$app->user->identity->admin_level != '1'){
+        $this->redirect(['site/index']);
+      }
+      
         return $this->render('dashboard');
     }
 
