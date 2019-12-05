@@ -14,27 +14,22 @@ $this->params['breadcrumbs'][] = $this->title;
   <h1><?= Html::encode($this->title) ?></h1>
 
   <div class="row">
-      <div class="col-lg-5">
+      <div class="col-lg-12">
           
           <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','id' => 'form-dashboard']]); ?>
-
-              <?php
+            
+            <?php
               
             //   $books = new ActiveDataProvider([
             //     'query'=>Book::find()
             //         ->all()
-            //   ])->asArray();
+            //   ])->asArray();    
 
-                $books = Book::find()
-                            ->select(['COUNT(*) AS cnt'])
-                            ->groupBy('subject_id')
-                            ->all();    
+                // $subjects = Subject::find()
+                //             ->select(['subject'])
+                //             ->all(); 
 
-                $subjects = Subject::find()
-                            ->select(['subject'])
-                            ->all(); 
-
-            //   $sqlBook = 'SELECT COUNT(*)
+            //   $sqlBook = 'SELECT COUNT(*) AS cnt
             //               FROM BOOK
             //               GROUP BY SUBJECT_ID';
 
@@ -49,57 +44,111 @@ $this->params['breadcrumbs'][] = $this->title;
             //       echo $temp->book_name;
             //   }
 
-              echo Highcharts::widget([
-                  'options' => [
-                  'title' => ['text' => 'Book Based On Subject'],
-                  'xAxis' => [
-                      'title' => ['text' => 'Subject'],
-                      'categories' => $books
-                  ],
-                  'yAxis' => [
-                      'title' => ['text' => 'Amount']
-                  ],
-                  'series' => [
-                      ['name' => 'Books', 'data' => $subjects],
-                  ]
-                  ]
-              ]);
-              ?>
+            $booksBySubject = Book::find()
+            ->select(['subject_id'])
+            ->all();
 
-              <h1> </h1>
+            $booksBySemester = Book::find()
+            ->select(['semester'])
+            ->where(['not', ['semester' => null]])
+            ->orderBy(['semester' => SORT_ASC])
+            ->all();
 
-              <?php
-              echo Highcharts::widget([
+            $booksByRelease = Book::find()
+            ->select(['release_year'])
+            ->orderBy(['release_year' => SORT_ASC])
+            ->all();
+
+            $subjects = Subject::find()->all();
+
+            //use yii\helpers\ArrayHelper;
+            $subjects = ArrayHelper::getColumn($subjects,'subject');
+            $booksBySubject = ArrayHelper::getColumn($booksBySubject,'subject_id');
+            $booksBySemester = ArrayHelper::getColumn($booksBySemester,'semester');
+            $booksByRelease = ArrayHelper::getColumn($booksByRelease, 'release_year');
+
+            $booksBySubject_sum = array_count_values($booksBySubject);
+            $booksBySemester_sum = array_count_values($booksBySemester);
+            $booksByRelease_sum = array_count_values($booksByRelease);
+            
+            $i = 0;
+            foreach($booksBySubject_sum as $temp) {
+                $arraySubject[$i] = $temp;
+                $i++;
+            }
+            
+            $i = 0;
+            foreach($booksBySemester_sum as $temp) {
+                $arraySemester[$i] = $temp;
+                $i++;
+            }
+
+            $i = 0;
+            foreach($booksByRelease_sum as $temp) {
+                $arrayRelease[$i] = $temp;
+                $i++;
+            }
+            ?>
+
+            <h1> </h1>
+
+            <?php
+            echo Highcharts::widget([
+                'options' => [
+                'title' => ['text' => 'Book Based On Subject'],
+                'xAxis' => [
+                    'title' => ['text' => 'Subject'],
+                    'categories' => $subjects
+                ],
+                'yAxis' => [
+                    'title' => ['text' => 'Amount']
+                ],
+                'series' => [
+                    ['name' => 'Books', 'data' => $arraySubject],
+                ]
+                ]
+            ]);
+            ?>
+            
+            <h1> </h1>
+
+            <?php
+            echo Highcharts::widget([
                 'options' => [
                 'title' => ['text' => 'Book Based On Semester'],
                 'xAxis' => [
-                    'categories' => ['Apples', 'Bananas', 'Oranges']
+                    'title' => ['text' => 'Semester'],
+                    'categories' => $booksBySemester
                 ],
                 'yAxis' => [
-                    'title' => ['text' => 'Fruit eaten']
+                    'title' => ['text' => 'Amount']
                 ],
                 'series' => [
-                    ['name' => 'Jane', 'data' => [1, 0, 4]]
+                    ['name' => 'Books', 'data' => $arraySemester],
                 ]
                 ]
-              ]);
+            ]);
+            ?>
 
-              echo Highcharts::widget([
+            <h1> </h1>
+
+            <?php
+            echo Highcharts::widget([
                 'options' => [
                 'title' => ['text' => 'Book Based On Release Year'],
                 'xAxis' => [
-                    'categories' => ['Apples', 'Bananas', 'Oranges']
+                    'title' => ['text' => 'Release Year'],
+                    'categories' => $booksByRelease
                 ],
                 'yAxis' => [
-                    'title' => ['text' => 'Fruit eaten']
+                    'title' => ['text' => 'Amount']
                 ],
                 'series' => [
-                    ['name' => 'Jane', 'data' => [1, 0, 4]],
-                    ['name' => 'John', 'data' => [5, 7, 3]]
+                    ['name' => 'Books', 'data' => $arrayRelease],
                 ]
                 ]
-              ]);
-              ?>
+            ]);
+            ?>
 
           <?php ActiveForm::end(); ?>
       </div>

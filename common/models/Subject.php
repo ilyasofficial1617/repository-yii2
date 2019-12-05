@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
  */
 class Subject extends ActiveRecord
 {
-    public $subject;
+    //public $subject;
     /*public $id;
     public $subject_id;
     public $book_name;
