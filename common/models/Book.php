@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
  */
 class Book extends ActiveRecord
 {
+    public $cnt;
     /*
     @property integer $id
     @property integer $subject_id
