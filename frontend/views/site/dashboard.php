@@ -15,19 +15,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <div class="row">
       <div class="col-lg-12">
-          
+
           <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','id' => 'form-dashboard']]); ?>
-            
+
             <?php
-              
+
             //   $books = new ActiveDataProvider([
             //     'query'=>Book::find()
             //         ->all()
-            //   ])->asArray();    
+            //   ])->asArray();
 
                 // $subjects = Subject::find()
                 //             ->select(['subject'])
-                //             ->all(); 
+                //             ->all();
 
             //   $sqlBook = 'SELECT COUNT(*) AS cnt
             //               FROM BOOK
@@ -37,9 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //   $sqlSubject = 'SELECT SUBJECT
             //                  FROM SUBJECT';
-              
+
             //   $subjects = Subject::findBySql($sqlSubject)->all();
-              
+
             //   foreach($books as $temp) {
             //       echo $temp->book_name;
             //   }
@@ -54,9 +54,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ->orderBy(['semester' => SORT_ASC])
             ->all();
 
+            $booksSemesterArray = Book::find()
+            ->select(['semester'])
+            ->where(['not', ['semester' => null]])
+            ->orderBy(['semester' => SORT_ASC])
+            ->distinct()
+            ->all();
+
             $booksByRelease = Book::find()
             ->select(['release_year'])
             ->orderBy(['release_year' => SORT_ASC])
+            ->all();
+
+            $booksReleaseArray = Book::find()
+            ->select(['release_year'])
+            ->orderBy(['release_year' => SORT_ASC])
+            ->distinct()
             ->all();
 
             $subjects = Subject::find()->all();
@@ -66,17 +79,19 @@ $this->params['breadcrumbs'][] = $this->title;
             $booksBySubject = ArrayHelper::getColumn($booksBySubject,'subject_id');
             $booksBySemester = ArrayHelper::getColumn($booksBySemester,'semester');
             $booksByRelease = ArrayHelper::getColumn($booksByRelease, 'release_year');
+            $booksSemesterArray = ArrayHelper::getColumn($booksSemesterArray,'semester');
+            $booksReleaseArray = ArrayHelper::getColumn($booksReleaseArray, 'release_year');
 
             $booksBySubject_sum = array_count_values($booksBySubject);
             $booksBySemester_sum = array_count_values($booksBySemester);
             $booksByRelease_sum = array_count_values($booksByRelease);
-            
+
             $i = 0;
             foreach($booksBySubject_sum as $temp) {
                 $arraySubject[$i] = $temp;
                 $i++;
             }
-            
+
             $i = 0;
             foreach($booksBySemester_sum as $temp) {
                 $arraySemester[$i] = $temp;
@@ -109,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ]);
             ?>
-            
+
             <h1> </h1>
 
             <?php
@@ -118,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'title' => ['text' => 'Book Based On Semester'],
                 'xAxis' => [
                     'title' => ['text' => 'Semester'],
-                    'categories' => $booksBySemester
+                    'categories' => $booksSemesterArray
                 ],
                 'yAxis' => [
                     'title' => ['text' => 'Amount']
@@ -138,7 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'title' => ['text' => 'Book Based On Release Year'],
                 'xAxis' => [
                     'title' => ['text' => 'Release Year'],
-                    'categories' => $booksByRelease
+                    'categories' => $booksReleaseArray
                 ],
                 'yAxis' => [
                     'title' => ['text' => 'Amount']
