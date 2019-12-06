@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Html::img('@web/img/yii-framework-2.png', ['alt'=>'some', 'class'=>'img-fluid', 'height'=>'30px', 'width'=>'40px']),
+        'brandLabel' => Html::img('@web/img/repo2.png', ['alt'=>'some', 'class'=>'img-fluid', 'width'=>'30px']),
         // <img src='yii-framework-2.png'>
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
@@ -87,7 +87,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <?= Html::encode("Repository Yii 2.0") ?> <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

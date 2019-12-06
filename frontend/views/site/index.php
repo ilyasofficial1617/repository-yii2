@@ -50,7 +50,7 @@ $this->title = 'Repository Yii2';
     }
     ?>
 
-   <!--  <div class="jumbotron">
+    <!-- <div class="jumbotron">
         <h1>Congratulations!</h1>
 
         <p class="lead">You have successfully created your Yii-powered application.</p>
@@ -92,7 +92,6 @@ $this->title = 'Repository Yii2';
                 <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
         </div>
-
+ -->
     </div>
 </div>
- -->
