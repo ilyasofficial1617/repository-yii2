@@ -51,6 +51,17 @@ class BookController extends Controller
                 
         ]);
 
+        /*$dataProvider = new ActiveDataProvider([
+            'query' => Book::find()
+                        ->innerJoinWith('subject', false)
+                        ->all(),
+            'pagination' => [
+                    'pageSize'=>5,
+            ],
+                
+        ]);*/
+
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);

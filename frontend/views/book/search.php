@@ -43,7 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                   'dataProvider' => $books,
                   'columns'=>[
                       ['class'=>'yii\grid\SerialColumn'],
-                      'subject_id',
+                      [
+                        'attribute' => 'subject name',
+                        'value' => 'subject.subject',
+                      ],
                       'book_name',
                       'author',
                       'release_year',
@@ -65,7 +68,10 @@ $this->params['breadcrumbs'][] = $this->title;
                   'dataProvider' => $books,
                   'columns'=>[
                       ['class'=>'yii\grid\SerialColumn'],
-                      'subject_id',
+                      [
+                        'attribute' => 'subject name',
+                        'value' => 'subject.subject',
+                      ],
                       'book_name',
                       'author',
                       'release_year',

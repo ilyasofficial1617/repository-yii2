@@ -23,6 +23,10 @@ $this->title = 'Repository Yii2';
             'dataProvider' => $dataProvider,
             'columns'=>[
                 ['class'=>'yii\grid\SerialColumn'],
+                [
+                    'attribute' => 'subject name',
+                    'value' => 'subject.subject',
+                ],
                 'book_name',
                 'author',
                 'release_year',
@@ -35,7 +39,10 @@ $this->title = 'Repository Yii2';
             'dataProvider' => $dataProvider,
             'columns'=>[
                 ['class'=>'yii\grid\SerialColumn'],
-                'subject_id',
+                [
+                    'attribute' => 'subject name',
+                    'value' => 'subject.subject',
+                ],
                 'book_name',
                 'author',
                 'release_year',
@@ -58,6 +65,10 @@ $this->title = 'Repository Yii2';
             'dataProvider' => $dataProvider,
             'columns'=>[
                 ['class'=>'yii\grid\SerialColumn'],
+                [
+                    'attribute' => 'subject name',
+                    'value' => 'subject.subject',
+                ],
                 'book_name',
                 'author',
                 'release_year',
