@@ -45,5 +45,8 @@ class Book extends ActiveRecord
       $link = $data->filename;
       return $link;
     }
+    public function getSubject(){
+      return $this->hasOne(Subject::className(),['id'=>'subject_id']);
+    }
 
 }

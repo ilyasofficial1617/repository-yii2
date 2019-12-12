@@ -37,18 +37,20 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Home', 'url' => ['/book/index']],
         ['label' => 'About', 'url' => ['/site/about']],
-        //['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
         
     } elseif (Yii::$app->user->identity->admin_level == '1'){
-        $menuItems[] = ['label' => 'Search', 'url' => ['/site/search']];
+        $menuItems[] = ['label' => 'Search', 'url' => ['/book/search']];
         $menuItems[] = ['label' => 'Add Subject', 'url' => ['/site/add-subject']];
+        //$menuItems[] = ['label' => 'Manipulate Subject', 'url' => ['/subject/index']];
         $menuItems[] = ['label' => 'Upload Book', 'url' => ['/site/upload-book']];
+        //$menuItems[] = ['label' => 'Manipulate Book', 'url' => ['/book/index']];
         $menuItems[] = ['label' => 'Dashboard', 'url' => ['/site/dashboard']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
@@ -59,7 +61,7 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     } else  {
-        $menuItems[] = ['label' => 'Search', 'url' => ['/site/search']];
+        $menuItems[] = ['label' => 'Search', 'url' => ['/book/search']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

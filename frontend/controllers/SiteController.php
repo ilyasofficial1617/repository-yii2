@@ -22,6 +22,7 @@ use common\models\Book;
 use common\models\Subject;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -74,6 +75,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'delete' => ['post'],
                 ],
             ],
         ];
@@ -131,51 +133,6 @@ class SiteController extends Controller
 
         return $this->render('uploadBook', ['model' => $model]);
 
-      /*$model = new UploadBookForm();
-      if ($model->load(Yii::$app->request->post()) && $model->upload()) {
-          Yii::$app->session->setFlash('success', 'Berhasil menambahkan buku '.$model->book_name);
-          return $this->render('uploadBook', [
-              'model' => new UploadBookForm(),
-          ]);
-      }
-
-      return $this->render('uploadBook', [
-          'model' => $model,
-      ]);*/
-      /*
-      $model = new UploadBookForm();
-
-        if (Yii::$app->request->isPost) {
-            $model->file = UploadedFile::getInstance($model, 'file');
-
-            if ($model->file && $model->validate()) {
-              Yii::$app->session->setFlash('success', 'Berhasil menambahkan buku '.$model->book_name);
-
-              $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-              $model->imageFile->saveAs('repo-data/' . $model->file->baseName . '.' . $model->file->extension);
-
-              return $this->render('uploadBook', [
-                  'model' => new UploadBookForm(),
-              ]);
-            }
-        }
-
-        return $this->render('uploadBook', [
-            'model' => new UploadBookForm(),
-        ]);*/
-        /*
-        $model = new UploadBookForm();
-
-        if (Yii::$app->request->isPost) {
-            $model->file = UploadedFile::getInstance($model, 'file');
-
-            if ($model->file && $model->validate()) {
-                $model->file->saveAs('repo-data/' . $model->file->baseName . '.' . $model->file->extension);
-            }
-        }
-
-        return $this->render('uploadBook', ['model' => $model]);
-        */
     }
 
     public function actionSearch(){
@@ -233,6 +190,7 @@ class SiteController extends Controller
         ]);
     }
 
+
     public function actionDashboard()
     {
       //if not admin
@@ -251,12 +209,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $books = new ActiveDataProvider([
+        /*$books = new ActiveDataProvider([
                 'query'=>Book::find()
                     ->orderBy('id DESC')
                     ->limit(5),
         ]);
-        return $this->render('index',['books'=>$books]);
+        return $this->render('index',['books'=>$books]);*/
+        return $this->redirect(array('book/index'));
     }
 
     /**

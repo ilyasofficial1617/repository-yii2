@@ -17,7 +17,7 @@ $this->title = 'Repository Yii2';
 
 
     <?php
-    if (Yii::$app->user->isGuest) {
+    if(Yii::$app->user->isGuest) {
         echo GridView::widget([
             'dataProvider' => $books,
             'columns'=>[
@@ -26,7 +26,8 @@ $this->title = 'Repository Yii2';
                 'author',
                 'release_year',
                 'semester',
-            ]
+                
+            ],
         ]);
     } else {
         echo GridView::widget([
@@ -44,7 +45,7 @@ $this->title = 'Repository Yii2';
                         $url = 'repo-data/'.$model->getLinkFile();
                         return Html::a($model->getLinkFile(),$url);
                     }
-                ]
+                ],
             ]
         ]);
     }
