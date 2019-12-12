@@ -73,9 +73,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ->all();
 
             $subjects = Subject::find()->all();
+            $subjectsDistinct = Subject::find()->distinct()->all();
 
             //use yii\helpers\ArrayHelper;
             $subjects = ArrayHelper::getColumn($subjects,'subject');
+            $subjectsDistinct = ArrayHelper::getColumn($subjectsDistinct,'subject');
             $booksBySubject = ArrayHelper::getColumn($booksBySubject,'subject_id');
             $booksBySemester = ArrayHelper::getColumn($booksBySemester,'semester');
             $booksByRelease = ArrayHelper::getColumn($booksByRelease, 'release_year');
@@ -113,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'title' => ['text' => 'Book Based On Subject'],
                 'xAxis' => [
                     'title' => ['text' => 'Subject'],
-                    'categories' => $subjects
+                    'categories' => $subjectsDistinct
                 ],
                 'yAxis' => [
                     'title' => ['text' => 'Amount']
