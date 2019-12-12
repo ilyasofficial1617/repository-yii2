@@ -34,8 +34,6 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'release_year')->textInput() ?>
 
-    <?= $form->field($model, 'filename')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($newFile, 'file')->FileInput()->label('Change File') ?>
 
 
